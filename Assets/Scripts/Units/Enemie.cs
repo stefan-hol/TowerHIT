@@ -9,6 +9,7 @@ public class Enemie : MonoBehaviour
     [SerializeField] private int speed;
     [SerializeField] private int damage;
     [SerializeField] private int Gold;
+    [SerializeField] private EnemyType Type;
     private Player _player;
     private Path _path;
     private WayPoint _currentWaypoint;
@@ -21,7 +22,7 @@ public class Enemie : MonoBehaviour
         SetupPath();
 
     }
-
+    public EnemyType GetType() { return Type; }
 
     // Update is called once per frame
     void Update()

@@ -37,7 +37,6 @@ public class Spawner : MonoBehaviour
             {
                 spawnEnemy(Random.Range(0, Enemies.Length));
                 yield return new WaitForSeconds(0.25f);
-
             }
 
         }
