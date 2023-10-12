@@ -122,4 +122,4 @@ MonoBehaviour:
   speed: 20
   damage: 5
   Gold: 5
-  Type: 1
+  Type: 0

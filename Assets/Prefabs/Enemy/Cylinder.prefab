@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 42702056970824278}
   - component: {fileID: 3469968909358225329}
   - component: {fileID: 3222881659302697271}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,3 +124,4 @@ MonoBehaviour:
   speed: 15
   damage: 20
   Gold: 30
+  Type: 0

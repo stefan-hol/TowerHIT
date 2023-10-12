@@ -10,6 +10,7 @@ public class Enemie : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private int Gold;
     [SerializeField] private EnemyType Type;
+
     private Player _player;
     private Path _path;
     private WayPoint _currentWaypoint;
@@ -20,9 +21,8 @@ public class Enemie : MonoBehaviour
     void Start()
     {
         SetupPath();
-
     }
-    public EnemyType GetType() { return Type; }
+    public EnemyType GetTyping() { return Type; }
 
     // Update is called once per frame
     void Update()
@@ -31,7 +31,7 @@ public class Enemie : MonoBehaviour
 
         float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition());
 
-        if (DistanceToWaypoint <= 0.2f)
+        if (DistanceToWaypoint <= 0.3f)
         {
             if (End == _currentWaypoint)
             {
@@ -57,17 +57,15 @@ public class Enemie : MonoBehaviour
     public void TakeDamage(int amount)
     {
         lives -= amount;
-
         if (lives <= 0)
         {
-            _player.Kill(Gold);
-            Destroy(gameObject);
+            Death();
         }
-
     }
 
     private void Death()
     {
+        _player.Kill(Gold);
         Destroy(gameObject);
     }
 

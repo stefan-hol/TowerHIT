@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class Spawner : MonoBehaviour
     public float timeBetweenWaves = 5f;
     private float countdown = 2f;
     public int waveNummer = 0;
+    private bool done = true;
 
     public Text WAVE;
     public Text waveCountDownText;
@@ -19,11 +21,11 @@ public class Spawner : MonoBehaviour
         if (countdown <= 0)
         {
             StartCoroutine(spawnWave());
+            done = false;
             countdown = timeBetweenWaves;
-
         }
+        if(done == true) { countdown -= Time.deltaTime; }
 
-        countdown -= Time.deltaTime;
 
         //waveCountDownText.text = Mathf.Round(countdown).ToString();
         //WAVE.text = "Wave: " + waveNummer;
@@ -38,7 +40,7 @@ public class Spawner : MonoBehaviour
                 spawnEnemy(Random.Range(0, Enemies.Length));
                 yield return new WaitForSeconds(0.25f);
             }
-
+            done = true;
         }
     }
 
@@ -47,3 +49,6 @@ public class Spawner : MonoBehaviour
         Instantiate(Enemies[r], spawnPoint.position, spawnPoint.rotation);
     }
 }
+
+
+ 
