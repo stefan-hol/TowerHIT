@@ -14,6 +14,12 @@ public class Player : MonoBehaviour
     private void Update()
     {
         //Player.text = "levens: " + _currentHealth;
+
+        RaycastHit hitInfo = new RaycastHit();
+        	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
+        	{
+            	print ("It's working");
+        	}
     }
     void Death()
     {

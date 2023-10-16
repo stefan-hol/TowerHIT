@@ -16,15 +16,21 @@ public class Enemie : MonoBehaviour
     private WayPoint _currentWaypoint;
     private WayPoint End;
 
+    private int wave = 0;
 
-    // Start is called before the first frame update
+    public Vector2 GetPathDistance()
+    {
+        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition());
+        Vector2 distance = new(DistanceToWaypoint, wave);
+        return distance;
+    }
+    public EnemyType GetTyping() { return Type; }
+
     void Start()
     {
         SetupPath();
     }
-    public EnemyType GetTyping() { return Type; }
 
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
@@ -41,6 +47,7 @@ public class Enemie : MonoBehaviour
             {
                 _currentWaypoint = _path.GetNextWaypoint(_currentWaypoint);
                 transform.LookAt(_currentWaypoint.GetPosition());
+                wave++;
             }
         }
     }

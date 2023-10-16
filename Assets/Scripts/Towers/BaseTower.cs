@@ -7,9 +7,14 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class BaseTower : MonoBehaviour
 {
     [SerializeField] protected float radius;
+    [SerializeField] protected float cd;
     [SerializeField] protected int goldCost;
+    [SerializeField] protected int damage;
     [SerializeField] protected EnemyType towerType;
+
     private LayerMask _layer;
+
+    protected bool canFire = true;
 
     private void Start()
     {
@@ -44,54 +49,36 @@ public class BaseTower : MonoBehaviour
     {
         Collider[] colls = Physics.OverlapSphere(transform.position, radius, _layer);
 
+        Enemie firstEnemie = null;
+        Vector2 best = new(0, -1);
+
         foreach (Collider coll in colls)
         {
             Enemie enemie = coll.GetComponent<Enemie>();
-
             if (type == EnemyType.All || type == enemie.GetTyping())
             {
-                return enemie;
+                Vector2 enemieDistance = enemie.GetPathDistance();
+                if (enemieDistance.y > best.y || (enemieDistance.y == best.y && enemieDistance.x < best.x))
+                {
+                    firstEnemie = enemie;
+                    best = enemieDistance;
+                }
             }
         }
-
-        return null;
+        return firstEnemie;
     }
 
-
-
+    protected void HandleCoolDown()
+    {
+        StartCoroutine(CooldownRoutine(cd));
+    }
+    protected IEnumerator CooldownRoutine(float cd)
+    {
+        yield return new WaitForSeconds(cd);
+        canFire = true;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
-
-
-/*
-private bool Camo = false;
-
-private Enemy targetFirstEnemy()
-{
-    Collider[] colls = Physics.OverlapSphere(transform.position, Range, _layer);
-    Enemie[] enemies = new List<Enemie>();
-
-    if (colls.Length <= 0)
-    {
-        return enemies.ToArray();
-    }
-
-    foreach (Collider coll in colls)
-    {
-        Enemy enemy = coll.GetComponent<Enemy>();
-
-        if (enemy.GetCamo() == false || enemy.GetCamo() == camo)
-        {
-            if(enemy.GetEnumie() == _targetConditions || _targetConditions == Enumies.All){enemies.Add(enemy);}
-        }
-    }
-    
-    if((enemy.GetCamo() == false || enemy.GetCamo() == camo) && (enemy.GetEnumie() == _targetConditions || _targetConditions == Enumies.All))
-
-
-    return enemies.ToArray();
-}
-*/

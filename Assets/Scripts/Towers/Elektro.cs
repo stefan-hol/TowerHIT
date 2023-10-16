@@ -5,12 +5,16 @@ using UnityEditor;
 using UnityEngine;
 
 public class Elektro : BaseTower
-{
-
-    [SerializeField] private int damage;
+{  
     void Update()
     {
-        if (GetAllEnemiesInRange(towerType).Length != 0) {Zap(GetAllEnemiesInRange(towerType));}
+        Enemie[] enemies = GetAllEnemiesInRange(towerType);
+        if (canFire == true && enemies.Length != 0) 
+        {
+            Zap(enemies);
+            canFire = false;
+            HandleCoolDown();
+        }
     }
 
     private void Zap(Enemie[] enemieList)
