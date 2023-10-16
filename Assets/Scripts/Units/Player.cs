@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     [SerializeField] private int Health;
     [SerializeField] private int Gold;
 
@@ -15,11 +13,23 @@ public class Player : MonoBehaviour
     {
         //Player.text = "levens: " + _currentHealth;
 
-        RaycastHit hitInfo = new RaycastHit();
-        	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
-        	{
-            	print ("It's working");
-        	}
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hitInfo;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.CompareTag("Tile"))
+            {
+                Tile tile = hitInfo.transform.GetComponent<Tile>();
+                print(tile.GetIsBuildabale());
+                if (tile.GetIsBuildabale() == true)
+                {
+                    // open tower menu to place
+                }
+                else if (tile.GetIsBuildabale() == false)
+                {
+                    // open tower upgrade dingetje
+                }
+            }
+        }    	
     }
     void Death()
     {

@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Waypoint
       objectReference: {fileID: 0}
+    - target: {fileID: 9065375310444842007, guid: 77a81c4e114548945b95cb0f1ebb0a76, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 9147554131672663916, guid: 77a81c4e114548945b95cb0f1ebb0a76, type: 3}
       propertyPath: IsBuildabale
       value: 0
