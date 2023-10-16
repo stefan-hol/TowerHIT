@@ -12,8 +12,7 @@ public class Enemie : MonoBehaviour
     [SerializeField] private float EnemieHeigth;
     [SerializeField] private EnemyType Type;
 
-    [SerializeField] private Player _player;
-    [SerializeField] private Path _path;
+    private Path _path;
     private WayPoint _currentWaypoint;
     private WayPoint End;
 
@@ -58,7 +57,7 @@ public class Enemie : MonoBehaviour
     void SetupPath()
     {
         _path = FindObjectOfType<Path>();
-        _player = FindObjectOfType<Player>();
+
         _currentWaypoint = _path.GetPathStart();
         transform.LookAt(_currentWaypoint.GetPosition(EnemieHeigth));
         End = _path.GetPathEnd();
@@ -75,13 +74,13 @@ public class Enemie : MonoBehaviour
 
     private void Death()
     {
-        _player.SetGold(Gold);
+        FindObjectOfType<Player>().SetGold(Gold);
         Destroy(gameObject);
     }
 
     private void PathComplete()
     {
         Destroy(gameObject);
-        _player.TakeDamage(damage);
+        FindObjectOfType<Player>().TakeDamage(damage);
     }
 }

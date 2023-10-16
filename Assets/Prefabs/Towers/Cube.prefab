@@ -122,4 +122,4 @@ MonoBehaviour:
   cd: 2
   goldCost: 0
   damage: 20
-  towerType: 1
+  towerType: 2

@@ -36,6 +36,8 @@ public class Store : MonoBehaviour
         {
             //fix dat je torens kan zien aankiezen en neerzetten
             player.SetGold(-200);
+            Instantiate(towers[0], tile.transform.position + new Vector3(0, 1, 0), transform.rotation);
+            tile.SetBuildabale(false);
         }
         else 
         {

@@ -5,8 +5,6 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField] private bool IsBuildabale;
-    public bool GetIsBuildabale()
-    {
-        return IsBuildabale;
-    }
+    public bool GetIsBuildabale(){ return IsBuildabale; }
+    public void SetBuildabale(bool build) {  IsBuildabale = build; }
 }

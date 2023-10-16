@@ -26,24 +26,20 @@ public class Spawner : MonoBehaviour
         }
         if(done == true) { countdown -= Time.deltaTime; }
 
-
         //waveCountDownText.text = Mathf.Round(countdown).ToString();
         //WAVE.text = "Wave: " + waveNummer;
-
-
-        IEnumerator spawnWave()
-        {
-            waveNummer++;
-
-            for (int i = 0; i < waveNummer; i++)
-            {
-                spawnEnemy(Random.Range(0, Enemies.Length));
-                yield return new WaitForSeconds(0.25f);
-            }
-            done = true;
-        }
     }
+    IEnumerator spawnWave()
+    {
+        waveNummer++;
 
+        for (int i = 0; i < waveNummer; i++)
+        {
+            spawnEnemy(Random.Range(0, Enemies.Length));
+            yield return new WaitForSeconds(0.25f);
+        }
+        done = true;
+    }
     void spawnEnemy(int r)
     {
         Instantiate(Enemies[r], transform.position + new Vector3(0, Enemies[r].GetHeigth(), 0), transform.rotation);
