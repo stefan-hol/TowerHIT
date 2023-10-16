@@ -9,10 +9,11 @@ public class Enemie : MonoBehaviour
     [SerializeField] private int speed;
     [SerializeField] private int damage;
     [SerializeField] private int Gold;
+    [SerializeField] private float EnemieHeigth;
     [SerializeField] private EnemyType Type;
 
-    private Player _player;
-    private Path _path;
+    [SerializeField] private Player _player;
+    [SerializeField] private Path _path;
     private WayPoint _currentWaypoint;
     private WayPoint End;
 
@@ -20,11 +21,13 @@ public class Enemie : MonoBehaviour
 
     public Vector2 GetPathDistance()
     {
-        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition());
+        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
         Vector2 distance = new(DistanceToWaypoint, wave);
         return distance;
     }
     public EnemyType GetTyping() { return Type; }
+
+    public float GetHeigth() { return EnemieHeigth; }
 
     void Start()
     {
@@ -35,7 +38,7 @@ public class Enemie : MonoBehaviour
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition());
+        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
 
         if (DistanceToWaypoint <= 0.3f)
         {
@@ -46,7 +49,7 @@ public class Enemie : MonoBehaviour
             else
             {
                 _currentWaypoint = _path.GetNextWaypoint(_currentWaypoint);
-                transform.LookAt(_currentWaypoint.GetPosition());
+                transform.LookAt(_currentWaypoint.GetPosition(EnemieHeigth));
                 wave++;
             }
         }
@@ -57,7 +60,7 @@ public class Enemie : MonoBehaviour
         _path = FindObjectOfType<Path>();
         _player = FindObjectOfType<Player>();
         _currentWaypoint = _path.GetPathStart();
-        transform.LookAt(_currentWaypoint.GetPosition());
+        transform.LookAt(_currentWaypoint.GetPosition(EnemieHeigth));
         End = _path.GetPathEnd();
     }
 
@@ -72,7 +75,7 @@ public class Enemie : MonoBehaviour
 
     private void Death()
     {
-        _player.Kill(Gold);
+        _player.SetGold(Gold);
         Destroy(gameObject);
     }
 

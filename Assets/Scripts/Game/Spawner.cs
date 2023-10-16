@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
-    public Transform[] Enemies;
-    public Transform spawnPoint;
+    [SerializeField] private Enemie[] Enemies;
+    [SerializeField] private float timeBetweenWaves = 5f;
 
-    public float timeBetweenWaves = 5f;
-    private float countdown = 2f;
-    public int waveNummer = 0;
+    private float countdown;
+    private int waveNummer;
     private bool done = true;
 
-    public Text WAVE;
-    public Text waveCountDownText;
+    private Text WAVE;
+    private Text waveCountDownText;
+
     private void Update()
     {
         if (countdown <= 0)
@@ -46,7 +46,7 @@ public class Spawner : MonoBehaviour
 
     void spawnEnemy(int r)
     {
-        Instantiate(Enemies[r], spawnPoint.position, spawnPoint.rotation);
+        Instantiate(Enemies[r], transform.position + new Vector3(0, Enemies[r].GetHeigth(), 0), transform.rotation);
     }
 }
 

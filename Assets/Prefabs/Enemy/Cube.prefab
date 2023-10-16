@@ -122,4 +122,5 @@ MonoBehaviour:
   speed: 20
   damage: 5
   Gold: 5
+  EnemieHeigth: 0.5
   Type: 0

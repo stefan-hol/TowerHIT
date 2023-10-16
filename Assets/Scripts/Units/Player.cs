@@ -8,28 +8,14 @@ public class Player : MonoBehaviour
     [SerializeField] private int Health;
     [SerializeField] private int Gold;
 
+    public void SetGold(int _gold) { Gold += _gold; }
+    public int GetGold() { return Gold; } 
+
     //public Text playerLevens;
     private void Update()
     {
-        //Player.text = "levens: " + _currentHealth;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hitInfo;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.CompareTag("Tile"))
-            {
-                Tile tile = hitInfo.transform.GetComponent<Tile>();
-                print(tile.GetIsBuildabale());
-                if (tile.GetIsBuildabale() == true)
-                {
-                    // open tower menu to place
-                }
-                else if (tile.GetIsBuildabale() == false)
-                {
-                    // open tower upgrade dingetje
-                }
-            }
-        }    	
+        //Player.text = "levens: " + Health + " Gold: " + Gold;
+   	
     }
     void Death()
     {
@@ -42,9 +28,5 @@ public class Player : MonoBehaviour
         {
             Death();
         }
-    }
-    public void Kill(int _gold)
-    {
-        Gold += _gold;
     }
 }
