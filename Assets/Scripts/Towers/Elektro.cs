@@ -5,9 +5,19 @@ using UnityEditor;
 using UnityEngine;
 
 public class Elektro : BaseTower
-{  
+{
+    [SerializeField] private Material oncd;
+    [SerializeField] private Material normal;
     void Update()
     {
+        if (canFire == false)
+        {
+            GetComponent<MeshRenderer>().material = oncd;
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().material = normal;
+        }
         Enemie[] enemies = GetAllEnemiesInRange(towerType);
         if (canFire == true && enemies.Length != 0) 
         {
@@ -15,6 +25,7 @@ public class Elektro : BaseTower
             canFire = false;
             HandleCoolDown();
         }
+
     }
 
     private void Zap(Enemie[] enemieList)

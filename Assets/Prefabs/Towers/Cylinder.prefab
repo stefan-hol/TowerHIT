@@ -123,5 +123,5 @@ MonoBehaviour:
   radius: 50
   cd: 0.25
   goldCost: 0
-  damage: 10
+  damage: 20
   towerType: 2

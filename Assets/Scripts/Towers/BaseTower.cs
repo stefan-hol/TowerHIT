@@ -58,6 +58,7 @@ public class BaseTower : MonoBehaviour
             if (type == EnemyType.All || type == enemie.GetTyping())
             {
                 Vector2 enemieDistance = enemie.GetPathDistance();
+                if (enemieDistance == null) { break; }
                 if (enemieDistance.y > best.y || (enemieDistance.y == best.y && enemieDistance.x < best.x))
                 {
                     firstEnemie = enemie;

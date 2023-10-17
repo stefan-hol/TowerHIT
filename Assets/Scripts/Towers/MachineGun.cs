@@ -8,6 +8,7 @@ public class MachineGun : BaseTower
     void Update()
     {
         Enemie enemie = GetFirstEnemyInRange(towerType);
+
         if (canFire == true && enemie != null)
         {
             Shoot(enemie);

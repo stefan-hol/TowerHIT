@@ -14,7 +14,16 @@ public class Store : MonoBehaviour
             if (tile == null) { return; }
             else
             {
-                OpenUI(tile);
+                OpenUI(tile, 0);
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Tile tile = GetTile();
+            if (tile == null) { return; }
+            else
+            {
+                OpenUI(tile, 1);
             }
         }
     }
@@ -30,13 +39,13 @@ public class Store : MonoBehaviour
         }
         return null;
     }
-    private void OpenUI(Tile tile)
+    private void OpenUI(Tile tile, int klik)
     {
         if(tile.GetIsBuildabale() == true) 
         {
             //fix dat je torens kan zien aankiezen en neerzetten
             player.SetGold(-200);
-            Instantiate(towers[0], tile.transform.position + new Vector3(0, 1, 0), transform.rotation);
+            Instantiate(towers[klik], tile.transform.position + new Vector3(0, 1, 0), transform.rotation);
             tile.SetBuildabale(false);
         }
         else 
