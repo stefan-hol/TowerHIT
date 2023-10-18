@@ -25,7 +25,6 @@ public class Spawner : MonoBehaviour
             countdown = timeBetweenWaves;
         }
         if(done == true) { countdown -= Time.deltaTime; }
-
         //waveCountDownText.text = Mathf.Round(countdown).ToString();
         //WAVE.text = "Wave: " + waveNummer;
     }
@@ -40,6 +39,9 @@ public class Spawner : MonoBehaviour
         }
         done = true;
     }
+
+
+
     void spawnEnemy(int r)
     {
         Instantiate(Enemies[r], transform.position + new Vector3(0, Enemies[r].GetHeigth(), 0), transform.rotation);

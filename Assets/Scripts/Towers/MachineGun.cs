@@ -7,10 +7,11 @@ public class MachineGun : BaseTower
 {
     void Update()
     {
-        Enemie enemie = GetFirstEnemyInRange(towerType);
-
-        if (canFire == true && enemie != null)
+        CDMaterial();
+        if (canFire == true)
         {
+            Enemie enemie = GetFirstEnemyInRange(towerType);
+            if (enemie == null || enemie.GetHealth() <= 0) { return; }
             Shoot(enemie);
             canFire = false;
             HandleCoolDown();

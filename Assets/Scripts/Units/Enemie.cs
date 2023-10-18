@@ -16,17 +16,13 @@ public class Enemie : MonoBehaviour
     private WayPoint _currentWaypoint;
     private WayPoint End;
 
-    private int wave = 0;
+    private float wave = 0f;
+    float DistanceToWaypoint = Mathf.Infinity;
 
-    public Vector2 GetPathDistance()
-    {
-        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
-        Vector2 distance = new(DistanceToWaypoint, wave);
-        return distance;
-    }
+    public Vector2 GetPathDistance() { return new(DistanceToWaypoint, wave); }
     public EnemyType GetTyping() { return Type; }
-
     public float GetHeigth() { return EnemieHeigth; }
+    public float GetHealth() { return lives; }
 
     void Start()
     {
@@ -37,7 +33,7 @@ public class Enemie : MonoBehaviour
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
+        DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
 
         if (DistanceToWaypoint <= 0.3f)
         {

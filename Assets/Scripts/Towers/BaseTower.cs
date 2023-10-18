@@ -11,6 +11,8 @@ public class BaseTower : MonoBehaviour
     [SerializeField] protected int goldCost;
     [SerializeField] protected int damage;
     [SerializeField] protected EnemyType towerType;
+    [SerializeField] protected Material oncd;
+    [SerializeField] protected Material normal;
 
     private LayerMask _layer;
 
@@ -49,20 +51,22 @@ public class BaseTower : MonoBehaviour
     {
         Collider[] colls = Physics.OverlapSphere(transform.position, radius, _layer);
 
+        if (colls.Length == 1) { return colls[0].GetComponent<Enemie>(); }
+
         Enemie firstEnemie = null;
-        Vector2 best = new(0, -1);
+        Vector2 Best = new(Mathf.Infinity, -1);
 
         foreach (Collider coll in colls)
         {
             Enemie enemie = coll.GetComponent<Enemie>();
+
             if (type == EnemyType.All || type == enemie.GetTyping())
             {
                 Vector2 enemieDistance = enemie.GetPathDistance();
-                if (enemieDistance == null) { break; }
-                if (enemieDistance.y > best.y || (enemieDistance.y == best.y && enemieDistance.x < best.x))
+                if (enemieDistance.y > Best.y || (enemieDistance.x < Best.x && enemieDistance.y == Best.y))
                 {
                     firstEnemie = enemie;
-                    best = enemieDistance;
+                    Best = enemieDistance;
                 }
             }
         }
@@ -78,6 +82,19 @@ public class BaseTower : MonoBehaviour
         yield return new WaitForSeconds(cd);
         canFire = true;
     }
+
+    protected void CDMaterial()
+    {
+        if (canFire == false)
+        {
+            GetComponent<MeshRenderer>().material = oncd;
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().material = normal;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, radius);

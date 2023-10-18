@@ -121,7 +121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 50
-  cd: 0.25
+  cd: 1
   goldCost: 0
   damage: 20
   towerType: 2
+  oncd: {fileID: 2100000, guid: e4eb7d8b43ea99a4dbb35ce95fc84aad, type: 2}
+  normal: {fileID: 2100000, guid: 1ff2c04dbc4a7454c8460890c055d4fd, type: 2}
