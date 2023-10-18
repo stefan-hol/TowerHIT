@@ -11,7 +11,7 @@ public class Elektro : BaseTower
     {
         CDMaterial();
         Enemie[] enemies = GetAllEnemiesInRange(towerType);
-        if (canFire == true && enemies.Length != 0) 
+        if (canFire == true && pause == false && enemies.Length != 0) 
         {
             Zap(enemies);
             canFire = false;

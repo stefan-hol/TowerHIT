@@ -64,7 +64,8 @@ PrefabInstance:
       propertyPath: IsBuildabale
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9147554131672663916, guid: 77a81c4e114548945b95cb0f1ebb0a76, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -92,6 +93,4 @@ MonoBehaviour:
   Enemies:
   - {fileID: 1271012494087559361, guid: c6bdf30518eea3449a536a2622a17728, type: 3}
   - {fileID: 3222881659302697271, guid: 6237d56ddf2504743b0dbc55ddd260d0, type: 3}
-  EnemyHeigth: 1
   timeBetweenWaves: 5
-  waveNummer: 0

@@ -17,7 +17,10 @@ public class BaseTower : MonoBehaviour
     private LayerMask _layer;
 
     protected bool canFire = true;
+    protected bool pause = false;
 
+    public void SetPause(bool _pase) { pause = _pase; }
+    public int GetGoldCost() { return goldCost; }
     private void Start()
     {
        _layer = LayerMask.GetMask("Enemy");

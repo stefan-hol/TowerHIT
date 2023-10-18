@@ -5,10 +5,11 @@ using static Unity.PlasticSCM.Editor.WebApi.CredentialsResponse;
 
 public class MachineGun : BaseTower
 {
+    
     void Update()
     {
         CDMaterial();
-        if (canFire == true)
+        if (canFire == true && pause == false)
         {
             Enemie enemie = GetFirstEnemyInRange(towerType);
             if (enemie == null || enemie.GetHealth() <= 0) { return; }

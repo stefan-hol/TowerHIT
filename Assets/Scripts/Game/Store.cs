@@ -6,29 +6,24 @@ public class Store : MonoBehaviour
 {
     [SerializeField] Player player;
     [SerializeField] BaseTower[] towers;
+    [SerializeField] GameObject buttons;
+
+    Tile tile;
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Tile tile = GetTile();
-            if (tile == null) { return; }
-            else
-            {
-                OpenUI(tile, 0);
-            }
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Tile tile = GetTile();
-            if (tile == null) { return; }
-            else
-            {
-                OpenUI(tile, 1);
-            }
-        }
+        OpenUI();
     }
 
-
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+        foreach (BaseTower tower in towers) { tower.SetPause(true); }
+    }
+    void ResumeGame()
+    {
+        Time.timeScale = 1;
+        foreach (BaseTower tower in towers) { tower.SetPause(false); }
+    }
 
     private Tile GetTile()
     {
@@ -39,18 +34,43 @@ public class Store : MonoBehaviour
         }
         return null;
     }
-    private void OpenUI(Tile tile, int klik)
+    private void OpenUI()
     {
-        if(tile.GetIsBuildabale() == true) 
+        if (buttons.activeSelf == false)
         {
-            //fix dat je torens kan zien aankiezen en neerzetten
-            player.SetGold(-200);
-            Instantiate(towers[klik], tile.transform.position + new Vector3(0, 1, 0), transform.rotation);
-            tile.SetBuildabale(false);
-        }
-        else 
-        {
-            //fix dat je de torens kan upgraden of verkopen.        
+            if (Input.GetMouseButtonDown(0) && GetTile() != null)
+            {
+                PauseGame();
+                tile = GetTile();
+                if (tile.GetIsBuildabale()) { buttons.SetActive(true); }
+                else { ResumeGame();/*upgrade dingetje en toren verkopen*/ }
+
+            }
         }
     }
+
+    public void SetTower(BaseTower tower)
+    {  
+        if(player.GetGold() >= tower.GetGoldCost())
+        {
+            player.SetGold(-tower.GetGoldCost());
+            Instantiate(tower, tile.transform.position + new Vector3(0, 1, 0), transform.rotation);
+            tile.SetBuildabale(false);
+        }
+        ResumeGame();
+        buttons.SetActive(false);   
+    }
 }
+
+
+//if(tile.GetIsBuildabale() == true) 
+//{
+//    //fix dat je torens kan zien aankiezen en neerzetten
+//    player.SetGold(-200);
+//    Instantiate(towers[klik], tile.transform.position + new Vector3(0, 1, 0), transform.rotation);
+//    tile.SetBuildabale(false);
+//}
+//else 
+//{
+//    //fix dat je de torens kan upgraden of verkopen.        
+//}
