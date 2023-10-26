@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Enemie : MonoBehaviour
 {
-
+    #region variables/GetSeters
     [SerializeField] private int lives;
-    [SerializeField] private int speed;
     [SerializeField] private int damage;
     [SerializeField] private int Gold;
+    [SerializeField] private float baseSpeed;
     [SerializeField] private float EnemieHeigth;
     [SerializeField] private EnemyType Type;
 
@@ -16,6 +16,7 @@ public class Enemie : MonoBehaviour
     private WayPoint _currentWaypoint;
     private WayPoint End;
 
+    private float speed;
     private float wave = 0f;
     float DistanceToWaypoint = Mathf.Infinity;
 
@@ -28,6 +29,7 @@ public class Enemie : MonoBehaviour
     {
         SetupPath();
     }
+    #endregion
 
     void Update()
     {
@@ -53,10 +55,10 @@ public class Enemie : MonoBehaviour
     void SetupPath()
     {
         _path = FindObjectOfType<Path>();
-
         _currentWaypoint = _path.GetPathStart();
         transform.LookAt(_currentWaypoint.GetPosition(EnemieHeigth));
         End = _path.GetPathEnd();
+        speed = baseSpeed;
     }
 
     public void TakeDamage(int amount)
@@ -79,4 +81,22 @@ public class Enemie : MonoBehaviour
         Destroy(gameObject);
         FindObjectOfType<Player>().TakeDamage(damage);
     }
+    public void SetSpeed(float slow)
+    {
+        speed = baseSpeed * slow;
+        HandleCoolDown();
+        print(speed);
+    }
+
+
+    protected void HandleCoolDown()
+    {
+        StartCoroutine(SpeedReset(2));
+    }
+    protected IEnumerator SpeedReset(float cd)
+    {
+        yield return new WaitForSeconds(cd);
+        speed = baseSpeed;
+    }
+
 }

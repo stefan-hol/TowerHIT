@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7215972342945042879
+--- !u!1 &949288548117466594
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4250002971781610674}
-  - component: {fileID: 3874066427064748109}
-  - component: {fileID: 2825658844349753799}
-  - component: {fileID: 6274174484548359868}
-  - component: {fileID: 3745025046329291161}
+  - component: {fileID: 7555193310624349928}
+  - component: {fileID: 1767961500698594608}
+  - component: {fileID: 742156568962717800}
+  - component: {fileID: -4557570066553821967}
+  - component: {fileID: 8402527915921201264}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4250002971781610674
+--- !u!4 &7555193310624349928
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7215972342945042879}
+  m_GameObject: {fileID: 949288548117466594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
@@ -35,21 +35,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3874066427064748109
+--- !u!33 &1767961500698594608
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7215972342945042879}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2825658844349753799
+  m_GameObject: {fileID: 949288548117466594}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &742156568962717800
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7215972342945042879}
+  m_GameObject: {fileID: 949288548117466594}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,13 +85,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6274174484548359868
-BoxCollider:
+--- !u!114 &-4557570066553821967
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7215972342945042879}
+  m_GameObject: {fileID: 949288548117466594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e08f9a8649005f4aa16861949cf4d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: 8674f3e885fd3c94699041d29c15aabd, type: 2}
+  - {fileID: 11400000, guid: 2f3e517958c1a7249ba226701f13fa38, type: 2}
+  Target: 1
+  targetType: 0
+  goldCost: 200
+  oncd: {fileID: 2100000, guid: e4eb7d8b43ea99a4dbb35ce95fc84aad, type: 2}
+  normal: {fileID: 2100000, guid: 1ff2c04dbc4a7454c8460890c055d4fd, type: 2}
+--- !u!136 &8402527915921201264
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949288548117466594}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -103,25 +123,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3745025046329291161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7215972342945042879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c898260d08fe2c48a783c4632944b4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 15
-  cd: 2
-  goldCost: 400
-  damage: 20
-  towerType: 2
-  oncd: {fileID: 2100000, guid: e4eb7d8b43ea99a4dbb35ce95fc84aad, type: 2}
-  normal: {fileID: 2100000, guid: 1ff2c04dbc4a7454c8460890c055d4fd, type: 2}
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

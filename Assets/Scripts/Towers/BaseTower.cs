@@ -1,32 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class BaseTower : MonoBehaviour
+public abstract class BaseTower : MonoBehaviour
 {
-    [SerializeField] protected float radius;
-    [SerializeField] protected float cd;
-    [SerializeField] protected int goldCost;
-    [SerializeField] protected int damage;
-    [SerializeField] protected EnemyType towerType;
-    [SerializeField] protected Material oncd;
-    [SerializeField] protected Material normal;
+    #region var/Get
 
+    protected float radius;
+    protected float cd;
+    protected int damage;
+    protected int level = 0;
+
+    protected EnemyType towerType;
+    protected TargetType targetType;
     private LayerMask _layer;
+
+    [SerializeField] protected bool Target;
+    [SerializeField] protected int goldCost;
 
     protected bool canFire = true;
     protected bool pause = false;
 
     public void SetPause(bool _pase) { pause = _pase; }
     public int GetGoldCost() { return goldCost; }
+    public bool IsTarget() { return Target; }
+    public TargetType GetTarget() { return targetType; }    
+
     private void Start()
     {
-       _layer = LayerMask.GetMask("Enemy");
+        _layer = LayerMask.GetMask("Enemy");
+        SetStats();
     }
+    public virtual void SetStats(){ }
+    #endregion
 
-    protected Enemie[] GetAllEnemiesInRange(EnemyType type)
+    protected Enemie[] GetAllEnemiesInRange()
     {
         List<Enemie> enemiesInRange = new List<Enemie>();
 
@@ -41,7 +52,7 @@ public class BaseTower : MonoBehaviour
         {
             Enemie enemie = coll.GetComponent<Enemie>();
 
-            if (type == EnemyType.All || type == enemie.GetTyping())
+            if (towerType == EnemyType.All || towerType == enemie.GetTyping())
             {
                 enemiesInRange.Add(enemie);
             }
@@ -50,30 +61,44 @@ public class BaseTower : MonoBehaviour
         return enemiesInRange.ToArray();
     }
 
-    protected Enemie GetFirstEnemyInRange(EnemyType type)
+    protected Enemie GetFirstEnemyInRange()
     {
-        Collider[] colls = Physics.OverlapSphere(transform.position, radius, _layer);
+        Enemie[] enemies = GetAllEnemiesInRange();
 
-        if (colls.Length == 1) { return colls[0].GetComponent<Enemie>(); }
+        if (enemies.Length == 0) { return null; }   
+        if (enemies.Length == 1) { return enemies[0]; }
 
-        Enemie firstEnemie = null;
-        Vector2 Best = new(Mathf.Infinity, -1);
+        Enemie BestEnemie = enemies[0];
+        Vector2 Best = BestEnemie.GetPathDistance();
 
-        foreach (Collider coll in colls)
+        for(int i = 1; i < enemies.Length; i++)
         {
-            Enemie enemie = coll.GetComponent<Enemie>();
-
-            if (type == EnemyType.All || type == enemie.GetTyping())
+            Vector2 enemieDistance = enemies[i].GetPathDistance();
+            if (enemieDistance.y > Best.y || (enemieDistance.x < Best.x && enemieDistance.y == Best.y))
             {
-                Vector2 enemieDistance = enemie.GetPathDistance();
-                if (enemieDistance.y > Best.y || (enemieDistance.x < Best.x && enemieDistance.y == Best.y))
-                {
-                    firstEnemie = enemie;
-                    Best = enemieDistance;
-                }
+                BestEnemie = enemies[i];
+                Best = enemieDistance;   
             }
         }
-        return firstEnemie;
+        return BestEnemie;
+    }
+    protected Enemie GetWeakestEnemie()
+    {
+        Enemie[] enemies = GetAllEnemiesInRange();
+
+        if (enemies.Length == 0) { return null; }
+        if (enemies.Length == 1) { return enemies[0]; }
+
+        Enemie BestEnemie = enemies[0];
+
+        for (int i = 1; i < enemies.Length; i++)
+        {
+            if (enemies[i].GetHealth() > BestEnemie.GetHealth())
+            {
+                BestEnemie = enemies[i];
+            }
+        }
+        return BestEnemie;
     }
 
     protected void HandleCoolDown()
@@ -86,20 +111,13 @@ public class BaseTower : MonoBehaviour
         canFire = true;
     }
 
-    protected void CDMaterial()
-    {
-        if (canFire == false)
-        {
-            GetComponent<MeshRenderer>().material = oncd;
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().material = normal;
-        }
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+    public void SetTarget(TargetType target)
+    {
+        targetType = target;
+    }
+
 }

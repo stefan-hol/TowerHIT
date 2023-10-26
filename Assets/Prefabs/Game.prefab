@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 50
-  Gold: 0
+  Gold: 1000
 --- !u!1 &8384568008704763861
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,3 +234,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7321986180670991669}
+  towers: []
+  buybuttons: {fileID: 0}
+  alreadybuttons: {fileID: 0}
