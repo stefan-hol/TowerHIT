@@ -85,7 +85,6 @@ public class Enemie : MonoBehaviour
     {
         speed = baseSpeed * slow;
         HandleCoolDown();
-        print(speed);
     }
 
 
