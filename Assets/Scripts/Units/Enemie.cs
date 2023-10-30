@@ -18,6 +18,7 @@ public class Enemie : MonoBehaviour
 
     private float speed;
     private float wave = 0f;
+    private float timer;
     float DistanceToWaypoint = Mathf.Infinity;
 
     public Vector2 GetPathDistance() { return new(DistanceToWaypoint, wave); }
@@ -49,6 +50,10 @@ public class Enemie : MonoBehaviour
                 transform.LookAt(_currentWaypoint.GetPosition(EnemieHeigth));
                 wave++;
             }
+        }
+        if(timer >= Time.time)
+        {
+            speed = baseSpeed;
         }
     }
 

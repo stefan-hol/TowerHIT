@@ -15,7 +15,7 @@ MonoBehaviour:
   radius: 20
   cd: 2
   upgradeCost: 250
-  damage: 5
+  damage: 10
   towerType: 2
   slow: 1
   normal: {fileID: 2100000, guid: 1ff2c04dbc4a7454c8460890c055d4fd, type: 2}

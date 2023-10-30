@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 20
-  damage: 50
+  damage: 5
   Gold: 30
   baseSpeed: 20
   EnemieHeigth: 1

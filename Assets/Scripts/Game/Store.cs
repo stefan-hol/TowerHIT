@@ -14,6 +14,8 @@ public class Store : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] BaseTower[] towers;
 
+    [SerializeField] TMP_Text UpgardeCost;
+
     [SerializeField] GameObject buybuttons;
     [SerializeField] GameObject alreadybuttons;
     [SerializeField] GameObject Targetbuttons;
@@ -40,6 +42,7 @@ public class Store : MonoBehaviour
     private void Update()
     {
         OpenUI();
+
     }
     #endregion
     private void OpenUI()
@@ -52,7 +55,8 @@ public class Store : MonoBehaviour
                 tile = GetTile();
                 if (tile.GetIsBuildabale()) { buybuttons.SetActive(true); }
                 else 
-                { 
+                {
+                    UpgardeCost.text = "Upgrade: " + tile.GetTower().GetGoldCost();
                     alreadybuttons.SetActive(true);
                     if (tile.GetTower().IsTarget() == true) 
                     {
@@ -67,7 +71,7 @@ public class Store : MonoBehaviour
     public void UpgradeTower()
     {
         BaseTower tower = tile.GetTower();
-        if (player.GetGold() > tower.GetGoldCost()) { tile.GetTower().SetStats(); player.SetGold(-tower.GetGoldCost()); }
+        if (player.GetGold() > tower.GetGoldCost()) { player.SetGold(-tower.GetGoldCost()); tile.GetTower().SetStats(); }
         Exit();
     }
     public void SetTower(BaseTower tower)

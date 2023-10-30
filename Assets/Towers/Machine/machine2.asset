@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 40
   cd: 0.5
-  upgradeCost: 150
+  upgradeCost: 0
   damage: 10
   towerType: 2
