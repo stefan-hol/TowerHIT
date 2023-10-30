@@ -6,4 +6,5 @@ using UnityEngine;
 public class ElektroCrip : ScripimalPrime
 {
     public float slow;
+    [SerializeField] public Material normal;
 }

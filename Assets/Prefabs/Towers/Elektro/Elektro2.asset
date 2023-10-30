@@ -18,3 +18,4 @@ MonoBehaviour:
   damage: 10
   towerType: 2
   slow: 0.8
+  normal: {fileID: 2100000, guid: 2eb89a3e3d7eafe4bae3a4e4cc2570e2, type: 2}

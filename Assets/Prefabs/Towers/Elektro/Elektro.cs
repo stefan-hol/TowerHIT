@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class Elektro : BaseTower
         towerType = leveling[level].towerType;
         goldCost = leveling[level].upgradeCost; 
         _slow = leveling[level].slow;
+        GetComponent<MeshRenderer>().material = leveling[level].normal;
         level++;
     }
     void Update()
