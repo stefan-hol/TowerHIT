@@ -8,27 +8,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
+[System.Serializable]
+public struct Towers
+{
+    [SerializeField] public BaseTower[] towers;
+    [HideInInspector] public List<string> names;
+};
+
 public class Store : MonoBehaviour
 {
-# region variables/GetSeters/Pause
-    [SerializeField] Player player;
-    [SerializeField] BaseTower[] towers;
-
-    [SerializeField] TMP_Text UpgardeCost;
-
-    [SerializeField] GameObject buybuttons;
-    [SerializeField] GameObject alreadybuttons;
-    [SerializeField] GameObject Targetbuttons;
+    #region variables/GetSeters/Pause
+    [SerializeField] private Towers towers;
+    [SerializeField] private Player player;
+    [SerializeField] private TMP_Text UpgardeCost;
+    [SerializeField] private GameObject buybuttons;
+    [SerializeField] private GameObject alreadybuttons;
+    [SerializeField] private GameObject Targetbuttons;
 
     private List<Tile> towerTiles = new();
-    Tile tile;
+    private Tile tile;
 
     public TMP_Dropdown dropdown;
+    public TMP_Dropdown dropTowers;
 
     private Tile GetTile()
     {
-        RaycastHit hitInfo;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo) && hitInfo.transform.CompareTag("Tile"))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo) && hitInfo.transform.CompareTag("Tile"))
         {
             return hitInfo.transform.GetComponent<Tile>();
         }
@@ -44,6 +49,14 @@ public class Store : MonoBehaviour
         OpenUI();
 
     }
+    private void Start()
+    {
+        foreach(BaseTower tower in towers.towers)
+        {
+            towers.names.Add(tower.name + " " + tower.GetGoldCost());
+        }
+        dropTowers.AddOptions(towers.names);
+    }
     #endregion
     private void OpenUI()
     {
@@ -53,7 +66,7 @@ public class Store : MonoBehaviour
             {
                 PauseGame();
                 tile = GetTile();
-                if (tile.GetIsBuildabale()) { buybuttons.SetActive(true); }
+                if (tile.GetIsBuildabale()) {buybuttons.SetActive(true); dropTowers.value = 0; }
                 else 
                 {
                     UpgardeCost.text = "Upgrade: " + tile.GetTower().GetGoldCost();
@@ -75,8 +88,9 @@ public class Store : MonoBehaviour
         Exit();
     }
     public void SetTower(BaseTower tower)
-    {  
-        if(player.GetGold() >= tower.GetGoldCost())
+    {
+        print(tower.name);
+        if (player.GetGold() >= tower.GetGoldCost())
         {
             player.SetGold(-tower.GetGoldCost());
             BaseTower cloneTower;
@@ -88,7 +102,8 @@ public class Store : MonoBehaviour
     }
     public void SetTarget(int val)
     {
-       switch (val) {
+        switch (val)
+        {
             case 0:
                 tile.GetTower().SetTarget(TargetType.First);
                 break;
@@ -97,6 +112,12 @@ public class Store : MonoBehaviour
                 break;
         }
     }
+    public void SetDropTower(int val)
+    {
+        SetTower(towers.towers[val - 1]);
+    }
+
+
     public void Sell()
     {
         BaseTower tower = tile.GetTower();
