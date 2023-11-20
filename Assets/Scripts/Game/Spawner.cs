@@ -1,4 +1,3 @@
-using Palmmedia.ReportGenerator.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,7 +43,7 @@ public class Spawner : MonoBehaviour
 
     void spawnEnemy(int r)
     {
-        Instantiate(Enemies[r], transform.position + new Vector3(0, Enemies[r].GetHeigth(), 0), transform.rotation);
+        Instantiate(Enemies[r], transform.position + new Vector3(0, Enemies[r].GetHeigth(), 0), Enemies[r].transform.rotation);
     }
 }
 

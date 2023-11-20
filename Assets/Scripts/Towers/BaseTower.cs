@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public abstract class BaseTower : MonoBehaviour
 {
     #region var/Get
-
     protected float radius;
     protected float cd;
     protected int damage;
@@ -35,6 +34,15 @@ public abstract class BaseTower : MonoBehaviour
         SetStats();
     }
     public virtual void SetStats(){ }
+    protected void BaseStats(ScripimalPrime levels)
+    {
+        radius = levels.radius;
+        cd = levels.cd;
+        damage = levels.damage;
+        towerType = levels.towerType;
+        goldCost = levels.upgradeCost;
+        level++;
+    }
     #endregion
 
     protected Enemie[] GetAllEnemiesInRange()

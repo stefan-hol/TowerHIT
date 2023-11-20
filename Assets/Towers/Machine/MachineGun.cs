@@ -2,20 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-using static Unity.PlasticSCM.Editor.WebApi.CredentialsResponse;
 
 public class MachineGun : BaseTower
 {
-    [SerializeField] protected BaseTowerCrip[] levels;
+    [SerializeField] protected BaseCrip[] levels;
     public override void SetStats()
     {
         if (level > levels.Length - 1) { return; }
-        radius = levels[level].radius;
-        cd = levels[level].cd;
-        damage = levels[level].damage;
-        towerType = levels[level].towerType;
-        goldCost = levels[level].upgradeCost;
-        level++;
+        BaseStats(levels[level]);
     }
     void Update()
     {

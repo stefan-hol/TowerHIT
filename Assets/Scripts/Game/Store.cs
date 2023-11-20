@@ -6,7 +6,6 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public struct Towers
@@ -80,6 +79,19 @@ public class Store : MonoBehaviour
 
             }
         }
+        if(Input.GetMouseButtonDown(1) && GetTile() != null) 
+        {
+            BaseTower to = GetTower();
+            if(to != null) { print("jottems"); }
+        }
+    }
+    private BaseTower GetTower()
+    {
+        if (Physics.Raycast(GetTile().transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hitInfo) && hitInfo.transform.CompareTag("Tower"))
+        {
+            return hitInfo.transform.GetComponent<BaseTower>();
+        }
+        return null;
     }
     public void UpgradeTower()
     {
@@ -89,7 +101,6 @@ public class Store : MonoBehaviour
     }
     public void SetTower(BaseTower tower)
     {
-        print(tower.name);
         if (player.GetGold() >= tower.GetGoldCost())
         {
             player.SetGold(-tower.GetGoldCost());
@@ -115,6 +126,7 @@ public class Store : MonoBehaviour
     public void SetDropTower(int val)
     {
         SetTower(towers.towers[val - 1]);
+        dropTowers.value = 0;
     }
 
 

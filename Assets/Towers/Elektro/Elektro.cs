@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Elektro : BaseTower
@@ -14,14 +13,9 @@ public class Elektro : BaseTower
     public override void SetStats()
     {
         if (level > leveling.Length - 1) { return; }
-        radius = leveling[level].radius;
-        cd = leveling[level].cd;
-        damage = leveling[level].damage;
-        towerType = leveling[level].towerType;
-        goldCost = leveling[level].upgradeCost; 
         _slow = leveling[level].slow;
         GetComponent<MeshRenderer>().material = leveling[level].normal;
-        level++;
+        BaseStats(leveling[level]);
     }
     void Update()
     {

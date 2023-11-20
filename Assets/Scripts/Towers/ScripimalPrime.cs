@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public abstract class ScripimalPrime : ScriptableObject
 {
     public float radius;
