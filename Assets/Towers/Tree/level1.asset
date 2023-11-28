@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa083b6526ad7c41924e3193cc08641, type: 3}
   m_Name: level1
   m_EditorClassIdentifier: 
-  radius: 500
-  cd: 0.5
+  radius: 50
+  cd: 0.8
   upgradeCost: 10
-  damage: 5
+  damage: 50
   towerType: 2
-  bullet: {fileID: 3032848889335256106, guid: 2b4b9b9ce79f0b1418116d0933b1ef70, type: 3}
+  bullet: {fileID: 1805876396039131471, guid: 2b4b9b9ce79f0b1418116d0933b1ef70, type: 3}
+  timer: 0.2

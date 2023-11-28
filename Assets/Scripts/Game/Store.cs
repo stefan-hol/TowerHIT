@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -105,7 +106,7 @@ public class Store : MonoBehaviour
         {
             player.SetGold(-tower.GetGoldCost());
             BaseTower cloneTower;
-            cloneTower = Instantiate(tower, tile.transform.position + new Vector3(0, 1, 0), transform.rotation);
+            cloneTower = Instantiate(tower, tile.transform.position, Quaternion.identity);
             tile.SetTower(cloneTower);
             towerTiles.Add(tile);
         }
@@ -125,8 +126,8 @@ public class Store : MonoBehaviour
     }
     public void SetDropTower(int val)
     {
+        if (val == 0) { return; }
         SetTower(towers.towers[val - 1]);
-        dropTowers.value = 0;
     }
 
 

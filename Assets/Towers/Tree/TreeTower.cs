@@ -1,17 +1,26 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class TreeTower : BaseTower
 {
-    private Bullet bullet;
+    private BulletPool _bulletPool;
+    private Animator anim;
+    private float timer;
     [SerializeField] private Towercrip[] levels;
+    [SerializeField] private GameObject BulletHole;
+    [SerializeField] private GameObject Canon;
     public override void SetStats()
     {
+        _bulletPool = GetComponent<BulletPool>();
         if (level > levels.Length - 1) { return; }
-        bullet = levels[level].bullet;
+        timer = levels[level].timer;
+        _bulletPool.SetDamage(levels[level].damage);
+        _bulletPool.InitializePool(levels[level].bullet);
         BaseStats(levels[level]);
 
     }
@@ -29,7 +38,7 @@ public class TreeTower : BaseTower
                     enemie = GetWeakestEnemie();
                     break;
             }
-
+            
             if (enemie == null || enemie.GetHealth() <= 0) { return; }
             Shoot(enemie);
             canFire = false;
@@ -40,11 +49,10 @@ public class TreeTower : BaseTower
 
     private void Shoot(Enemie enemie)
     {
-        Bullet bul;
-
-        bul = Instantiate(bullet, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        //anim.Play("Base Layer.CanonShoot");
+        Canon.transform.LookAt(enemie.transform.position);
+        Bullet bul = _bulletPool.GetBullet();
+        bul.transform.position = BulletHole.transform.position;
         bul.SetTarget(enemie);
-        bul.SetDamage(damage);
     }
-
 }

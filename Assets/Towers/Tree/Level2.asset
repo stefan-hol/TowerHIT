@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b30922890f585642ba91cb7620fa18b, type: 3}
-  m_Name: Elektro2
+  m_Script: {fileID: 11500000, guid: 5fa083b6526ad7c41924e3193cc08641, type: 3}
+  m_Name: Level2
   m_EditorClassIdentifier: 
-  radius: 30
-  cd: 1.5
+  radius: 50
+  cd: 0.7
   upgradeCost: 0
   damage: 50
   towerType: 2
-  slow: 1
-  normal: {fileID: 2100000, guid: 2eb89a3e3d7eafe4bae3a4e4cc2570e2, type: 2}
+  bullet: {fileID: -6469179726982391702, guid: e0063089f2e16674f9b37f820517dda8, type: 3}
+  timer: 2

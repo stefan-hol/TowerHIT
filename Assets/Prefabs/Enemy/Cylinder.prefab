@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 42702056970824278}
   - component: {fileID: 3469968909358225329}
   - component: {fileID: 3222881659302697271}
+  - component: {fileID: -8281425438522063506}
   m_Layer: 6
   m_Name: Cylinder
   m_TagString: Enemy
@@ -104,10 +105,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.6374084
+  m_Height: 3.0261726
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.13740838, y: -0.00744009, z: -0.00000011920929}
 --- !u!114 &3222881659302697271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,3 +127,30 @@ MonoBehaviour:
   baseSpeed: 20
   EnemieHeigth: 1
   Type: 0
+--- !u!54 &-8281425438522063506
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392351462372985272}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

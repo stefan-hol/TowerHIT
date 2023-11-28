@@ -43,7 +43,8 @@ public class Spawner : MonoBehaviour
 
     void spawnEnemy(int r)
     {
-        Instantiate(Enemies[r], transform.position + new Vector3(0, Enemies[r].GetHeigth(), 0), Enemies[r].transform.rotation);
+        Enemie enem = Instantiate(Enemies[r], transform.position + new Vector3(0, Enemies[r].GetHeigth(), 0), Enemies[r].transform.rotation);
+        enem.transform.parent = transform;
     }
 }
 

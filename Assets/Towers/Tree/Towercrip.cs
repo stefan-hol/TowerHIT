@@ -6,4 +6,5 @@ using UnityEngine;
 public class Towercrip : ScripimalPrime
 {
     public Bullet bullet;
+    public float timer;
 }

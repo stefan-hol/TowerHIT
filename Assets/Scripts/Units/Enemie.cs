@@ -11,7 +11,6 @@ public class Enemie : MonoBehaviour
     [SerializeField] private float baseSpeed;
     [SerializeField] private float EnemieHeigth;
     [SerializeField] private EnemyType Type;
-
     private Path _path;
     private WayPoint _currentWaypoint;
     private WayPoint End;
@@ -19,9 +18,10 @@ public class Enemie : MonoBehaviour
     private float speed;
     private float wave = 0f;
     private float timer;
-    float DistanceToWaypoint = Mathf.Infinity;
+    private float walkTime;
 
-    public Vector2 GetPathDistance() { return new(DistanceToWaypoint, wave); }
+
+    public Vector3 GetPathDistance() { return new(Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth)), wave); }
     public EnemyType GetTyping() { return Type; }
     public float GetHeigth() { return EnemieHeigth; }
     public float GetHealth() { return lives; }
@@ -31,14 +31,33 @@ public class Enemie : MonoBehaviour
         SetupPath();
     }
     #endregion
+    public Vector3 ShotLocation(float bulletTime, GameObject lit)
+    {
+        lit.transform.SetPositionAndRotation(transform.position, transform.rotation);
+        float DistancetoShoot = Vector3.Distance(transform.position, transform.position + speed * bulletTime * Vector3.forward);
+        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
+        if (DistancetoShoot > DistanceToWaypoint) 
+        {
+            float exces = DistancetoShoot - DistanceToWaypoint;
+            lit.transform.position += DistanceToWaypoint * Vector3.forward;
+            if(_currentWaypoint != End) 
+            {
+                WayPoint point = _path.GetNextWaypoint(_currentWaypoint);
+                lit.transform.LookAt(point.transform.position);
+                lit.transform.position += exces * Vector3.forward;
+                return lit.transform.position;
+            }
+            print("kut");
+        }
 
+        return lit.transform.position += DistancetoShoot * Vector3.forward;
+        //return ret;
+    }
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
-
-        DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
-
-        if (DistanceToWaypoint <= 0.3f)
+        transform.Translate(speed * Time.deltaTime * Vector3.forward);
+        walkTime -= Time.deltaTime;
+        if (walkTime <= 0)
         {
             if (End == _currentWaypoint)
             {
@@ -48,12 +67,9 @@ public class Enemie : MonoBehaviour
             {
                 _currentWaypoint = _path.GetNextWaypoint(_currentWaypoint);
                 transform.LookAt(_currentWaypoint.GetPosition(EnemieHeigth));
+                walkTime = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth)) / speed;
                 wave++;
             }
-        }
-        if(timer >= Time.time)
-        {
-            speed = baseSpeed;
         }
     }
 
@@ -64,6 +80,7 @@ public class Enemie : MonoBehaviour
         transform.LookAt(_currentWaypoint.GetPosition(EnemieHeigth));
         End = _path.GetPathEnd();
         speed = baseSpeed;
+        walkTime = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth)) / speed;
     }
 
     public void TakeDamage(int amount)
