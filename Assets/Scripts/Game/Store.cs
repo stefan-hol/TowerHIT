@@ -46,7 +46,9 @@ public class Store : MonoBehaviour
         {
             return jottems.transform.GetComponent<BaseTower>();
         }
-        if (Physics.Raycast(GetTile().transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hitInfo) && hitInfo.transform.CompareTag("Tower"))
+        tile = GetTile();
+        if (tile == null) { return null; }
+        if (Physics.Raycast(tile.transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hitInfo) && hitInfo.transform.CompareTag("Tower"))
         {
             return hitInfo.transform.GetComponent<BaseTower>();
         }

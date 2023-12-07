@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: -6411405207948765964}
   - component: {fileID: 134831181328007577}
   - component: {fileID: 6573457250579904687}
+  - component: {fileID: 4590293323372255378}
   m_Layer: 0
   m_Name: TowerV2
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,6 +91,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &4590293323372255378
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141951462329938274}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.239943, y: 6.5337906, z: 3.7626922}
+  m_Center: {x: -0.40548986, y: 2.7668958, z: 0.34361112}
 --- !u!1 &4071964984665581753
 GameObject:
   m_ObjectHideFlags: 0
