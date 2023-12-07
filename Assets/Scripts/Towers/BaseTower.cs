@@ -19,6 +19,7 @@ public abstract class BaseTower : MonoBehaviour
 
     [SerializeField] protected bool Target;
     [SerializeField] protected int goldCost;
+    [SerializeField] protected float Height;
 
     protected bool canFire = true;
     protected bool pause = false;
@@ -43,11 +44,12 @@ public abstract class BaseTower : MonoBehaviour
         goldCost = levels.upgradeCost;
         level++;
     }
+    public float GetHeight(){ return Height;}
     #endregion
 
     protected Enemie[] GetAllEnemiesInRange()
     {
-        List<Enemie> enemiesInRange = new List<Enemie>();
+        List<Enemie> enemiesInRange = new();
 
         Collider[] colls = Physics.OverlapSphere(transform.position, radius, _layer);
 

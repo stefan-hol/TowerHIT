@@ -53,6 +53,7 @@ public class TreeTower : BaseTower
         Canon.transform.LookAt(enemie.transform.position);
         Bullet bul = _bulletPool.GetBullet();
         bul.transform.position = BulletHole.transform.position;
+        bul.transform.LookAt(enemie.transform.position);
         bul.SetTarget(enemie);
     }
 }

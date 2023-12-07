@@ -27,6 +27,7 @@ public class Store : MonoBehaviour
 
     private List<Tile> towerTiles = new();
     private Tile tile;
+    private BaseTower tower;
 
     public TMP_Dropdown dropdown;
     public TMP_Dropdown dropTowers;
@@ -37,6 +38,19 @@ public class Store : MonoBehaviour
         {
             return hitInfo.transform.GetComponent<Tile>();
         }
+        return null;
+    }
+    private BaseTower GetTower()
+    {
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit jottems) && jottems.transform.CompareTag("Tower"))
+        {
+            return jottems.transform.GetComponent<BaseTower>();
+        }
+        if (Physics.Raycast(GetTile().transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hitInfo) && hitInfo.transform.CompareTag("Tower"))
+        {
+            return hitInfo.transform.GetComponent<BaseTower>();
+        }
+
         return null;
     }
     void PauseGame()
@@ -62,51 +76,40 @@ public class Store : MonoBehaviour
     {
         if (buybuttons.activeSelf == false && alreadybuttons.activeSelf == false)
         {
-            if (Input.GetMouseButtonDown(0) && GetTile() != null)
+            if (Input.GetMouseButtonDown(0) && (GetTile() != null || GetTower() != null))
             {
                 PauseGame();
                 tile = GetTile();
-                if (tile.GetIsBuildabale()) {buybuttons.SetActive(true); dropTowers.value = 0; }
+                tower = GetTower();
+                if (tower == null) {buybuttons.SetActive(true); dropTowers.value = 0; }
                 else 
                 {
-                    UpgardeCost.text = "Upgrade: " + tile.GetTower().GetGoldCost();
+                    UpgardeCost.text = "Upgrade: " + tower.GetGoldCost();
                     alreadybuttons.SetActive(true);
-                    if (tile.GetTower().IsTarget() == true) 
+                    if (tower.IsTarget() == true) 
                     {
                         Targetbuttons.SetActive(true);
-                        dropdown.value = (int)tile.GetTower().GetTarget();
+                        dropdown.value = (int)tower.GetTarget();
                     }
                 }
 
             }
         }
-        if(Input.GetMouseButtonDown(1) && GetTile() != null) 
-        {
-            BaseTower to = GetTower();
-            if(to != null) { print("jottems"); }
-        }
     }
-    private BaseTower GetTower()
-    {
-        if (Physics.Raycast(GetTile().transform.position, transform.TransformDirection(Vector3.up), out RaycastHit hitInfo) && hitInfo.transform.CompareTag("Tower"))
-        {
-            return hitInfo.transform.GetComponent<BaseTower>();
-        }
-        return null;
-    }
+    
     public void UpgradeTower()
     {
-        BaseTower tower = tile.GetTower();
-        if (player.GetGold() > tower.GetGoldCost()) { player.SetGold(-tower.GetGoldCost()); tile.GetTower().SetStats(); }
+        
+        if (player.GetGold() > tower.GetGoldCost()) { player.SetGold(-tower.GetGoldCost()); tower.SetStats(); }
         Exit();
     }
-    public void SetTower(BaseTower tower)
+    public void SetTower(BaseTower _tower)
     {
-        if (player.GetGold() >= tower.GetGoldCost())
+        if (player.GetGold() >= _tower.GetGoldCost())
         {
-            player.SetGold(-tower.GetGoldCost());
+            player.SetGold(-_tower.GetGoldCost());
             BaseTower cloneTower;
-            cloneTower = Instantiate(tower, tile.transform.position, Quaternion.identity);
+            cloneTower = Instantiate(_tower, tile.transform.position + new Vector3(0, _tower.GetHeight(), 0), Quaternion.identity);
             tile.SetTower(cloneTower);
             towerTiles.Add(tile);
         }
@@ -117,10 +120,10 @@ public class Store : MonoBehaviour
         switch (val)
         {
             case 0:
-                tile.GetTower().SetTarget(TargetType.First);
+                tower.SetTarget(TargetType.First);
                 break;
             case 1:
-                tile.GetTower().SetTarget(TargetType.Weakest);
+                tower.SetTarget(TargetType.Weakest);
                 break;
         }
     }

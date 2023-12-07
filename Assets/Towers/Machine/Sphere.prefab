@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: 1
   goldCost: 50
+  Height: 1
   levels:
   - {fileID: 11400000, guid: 030a943562f5b2b43b59a9fc8dea1318, type: 2}
   - {fileID: 11400000, guid: 4fd8e0f18955d9b4185868b3b1624ad8, type: 2}
