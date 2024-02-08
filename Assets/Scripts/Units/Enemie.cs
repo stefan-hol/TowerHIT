@@ -14,14 +14,15 @@ public class Enemie : MonoBehaviour
     private Path _path;
     private WayPoint _currentWaypoint;
     private WayPoint End;
+    [SerializeField]private GameObject[] _way;
 
     private float speed;
     private float wave = 0f;
-    private float timer;
+    private float timer = -3;
     private float walkTime;
 
 
-    public Vector3 GetPathDistance() { return new(Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth)), wave); }
+    public Vector2 GetPathDistance() { return new(Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth)), wave); }
     public EnemyType GetTyping() { return Type; }
     public float GetHeigth() { return EnemieHeigth; }
     public float GetHealth() { return lives; }
@@ -29,13 +30,15 @@ public class Enemie : MonoBehaviour
     void Start()
     {
         SetupPath();
+        //_way
     }
     #endregion
     public Vector3 ShotLocation(float bulletTime, GameObject lit)
     {
         lit.transform.SetPositionAndRotation(transform.position, transform.rotation);
-        float DistancetoShoot = Vector3.Distance(transform.position, transform.position + speed * bulletTime * Vector3.forward);
-        float DistanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
+        float DistancetoShoot = Vector2.Distance(transform.position, transform.position + speed * bulletTime * Vector3.forward);
+        float DistanceToWaypoint = Vector2.Distance(transform.position, _currentWaypoint.GetPosition(EnemieHeigth));
+        if(timer < -1)timer = bulletTime;
         if (DistancetoShoot > DistanceToWaypoint) 
         {
             float exces = DistancetoShoot - DistanceToWaypoint;
@@ -45,16 +48,23 @@ public class Enemie : MonoBehaviour
                 WayPoint point = _path.GetNextWaypoint(_currentWaypoint);
                 lit.transform.LookAt(point.transform.position);
                 lit.transform.position += exces * Vector3.forward;
+                Instantiate(_way[0], lit.transform.position, Quaternion.identity);
                 return lit.transform.position;
             }
             print("kut");
         }
-
+        Instantiate(_way[0], lit.transform.position, Quaternion.identity) ;
         return lit.transform.position += DistancetoShoot * Vector3.forward;
         //return ret;
     }
+    private void Hey() 
+    {
+        timer -= Time.deltaTime;
+        if (timer < 0 && timer! < -2) { Instantiate(_way[1], transform.position, Quaternion.identity); timer = -3; }
+    }
     void Update()
     {
+        Hey();
         transform.Translate(speed * Time.deltaTime * Vector3.forward);
         walkTime -= Time.deltaTime;
         if (walkTime <= 0)

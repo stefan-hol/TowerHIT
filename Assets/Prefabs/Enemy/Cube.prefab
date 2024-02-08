@@ -125,6 +125,9 @@ MonoBehaviour:
   baseSpeed: 15
   EnemieHeigth: 0.5
   Type: 0
+  _way:
+  - {fileID: 7484278138240155893, guid: 5829b24ef106dac4f8049129d276fcf2, type: 3}
+  - {fileID: 62641130354291983, guid: 7e7e015f8128c814cbbd03cfb860aeb2, type: 3}
 --- !u!54 &2352007426449542565
 Rigidbody:
   m_ObjectHideFlags: 0

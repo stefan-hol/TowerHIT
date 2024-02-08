@@ -12,7 +12,7 @@ public class Path : MonoBehaviour
     }
     public WayPoint GetPathEnd()
     {
-        return _waypoints[_waypoints.Length - 1];
+        return _waypoints[^1];
     }
     public WayPoint GetNextWaypoint(WayPoint currentWaypoint)
     {
